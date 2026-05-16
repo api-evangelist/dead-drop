@@ -1,0 +1,23 @@
+aid: dead-drop
+url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/apis.yml
+name: Dead Drop
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+description: 'Dead-drop messaging API.'
+created: '2026-05-16'
+modified: '2026-05-16'
+specificationVersion: '0.19'
+tags:
+  - Messaging
+  - Privacy
+  - Anonymous
+
+common:
+  - url: https://davorinrusevljan.github.io/dead-drop/latest/
+    type: Website
+  - url: https://davorinrusevljan.github.io/dead-drop/
+    type: Documentation
+  - url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
+    type: APIsJSON
+url-source: https://davorinrusevljan.github.io/dead-drop/latest/
+apis: []
