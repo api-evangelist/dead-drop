@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/dead-drop/main/json-schema/dead-drop-drop-schema.json",
+  "title": "Drop",
+  "description": "A dead-drop ephemeral data share. Free tier: 10KB, 7-day lifespan. Deep tier: 4MB, 90-day lifespan. Private drops are end-to-end encrypted client-side (zero-knowledge); public drops are plaintext.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the drop name."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-friendly 4-word kebab-case drop name generated from the EFF Diceware wordlist."
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["free", "deep"],
+      "description": "Drop tier. Free: 10KB, 7 days. Deep: 4MB, 90 days."
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["private", "public"],
+      "description": "Drop visibility. Private drops are encrypted; public drops are plaintext."
+    },
+    "payload": {
+      "type": "string",
+      "description": "For private drops: hex-encoded AES-GCM ciphertext. For public drops: raw content string."
+    },
+    "salt": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$",
+      "description": "Hex-encoded 16-byte salt for PBKDF2 key derivation."
+    },
+    "iv": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{24}$",
+      "description": "Hex-encoded 12-byte AES-GCM initialization vector. Null for public drops."
+    },
+    "encryptionAlgo": {
+      "type": ["string", "null"],
+      "enum": ["pbkdf2-aes256-gcm-v1", null],
+      "description": "Encryption algorithm identifier. Null for public drops."
+    },
+    "encryptionParams": {
+      "type": ["object", "null"],
+      "properties": {
+        "rounds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "PBKDF2 iteration count."
+        }
+      }
+    },
+    "mimeType": {
+      "type": "string",
+      "enum": ["text/plain"],
+      "description": "MIME type of drop content."
+    },
+    "hashAlgo": {
+      "type": "string",
+      "enum": ["sha-256"],
+      "description": "Hash algorithm used for the drop id and admin authentication."
+    },
+    "contentHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the canonical content payload JSON. Used for optimistic concurrency and admin auth."
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp at which the drop expires and is purged."
+    }
+  },
+  "required": ["id", "tier", "visibility", "payload", "salt", "mimeType", "hashAlgo", "expiresAt"]
+}

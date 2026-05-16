@@ -1,0 +1,78 @@
+name: Dead Drop Vocabulary
+description: Domain vocabulary for the dead-drop privacy-focused ephemeral messaging API.
+url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/vocabulary/dead-drop-vocabulary.yml
+created: '2026-05-16'
+modified: '2026-05-16'
+
+dimensions:
+  resources:
+    - name: Drop
+      description: An ephemeral data share identified by a SHA-256 hash of a 4-word kebab-case name.
+    - name: Drop Version
+      description: A historical snapshot of a drop (max 5 versions retained).
+    - name: Drop Name
+      description: A 4-word kebab-case identifier generated from the EFF Diceware wordlist.
+
+  capabilities:
+    - name: Generate Drop Name
+      description: Generate a random unused 4-word drop name and its SHA-256 id.
+    - name: Check Drop Availability
+      description: Test whether a drop id (hashed name) is already in use.
+    - name: Create Drop
+      description: Persist a new private (encrypted) or public (plaintext) drop.
+    - name: Retrieve Drop
+      description: Fetch the current version of a drop by id.
+    - name: Update Drop
+      description: Replace the payload of an existing drop, creating a new version.
+    - name: Delete Drop
+      description: Permanently delete a drop and all of its history.
+    - name: List Drop History
+      description: Enumerate all stored versions of a drop.
+    - name: Retrieve Drop Version
+      description: Fetch a specific historical version of a drop.
+    - name: Health Check
+      description: Verify the API is healthy and responsive.
+
+  tiers:
+    - name: Free
+      description: 10KB payload limit, 7-day lifespan, text only.
+    - name: Deep
+      description: 4MB payload limit, 90-day lifespan.
+
+  visibility:
+    - name: Private
+      description: Client-side AES-GCM encrypted payload; zero-knowledge to the server.
+    - name: Public
+      description: Plaintext payload, plus admin-password gating for mutation.
+
+  cryptography:
+    - name: PBKDF2-AES256-GCM-v1
+      description: Encryption algorithm identifier; PBKDF2 key derivation feeding AES-256-GCM.
+    - name: SHA-256
+      description: Hash algorithm used for drop ids and admin authentication.
+    - name: Salt
+      description: 16-byte (32 hex char) PBKDF2 salt.
+    - name: IV
+      description: 12-byte (24 hex char) AES-GCM initialization vector.
+    - name: Content Hash
+      description: SHA-256 hash of the canonical content payload JSON, used for concurrency and admin auth.
+
+  governance:
+    - name: Terms And Conditions Acknowledgement
+      description: Every mutation and retrieval requires the I_agree_with_terms_and_conditions flag.
+    - name: Maximum Versions
+      description: A drop retains at most 5 versions; further updates are rejected.
+    - name: Expiration
+      description: Drops are automatically purged after their tier-specific lifespan.
+
+  errors:
+    - name: NOT_FOUND
+      description: Drop does not exist or has expired.
+    - name: UNAUTHORIZED
+      description: Invalid admin credentials or content hash.
+    - name: PAYLOAD_TOO_LARGE
+      description: Payload exceeds the tier limit.
+    - name: MAX_VERSIONS_REACHED
+      description: Drop already has 5 versions; cannot create another.
+    - name: TERMS_NOT_AGREED
+      description: Required terms-of-service acknowledgement flag missing or false.

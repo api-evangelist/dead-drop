@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/dead-drop/main/json-schema/dead-drop-version-schema.json",
+  "title": "Drop Version",
+  "description": "A historical version of a drop. Each drop is limited to 5 stored versions.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonically increasing version number for the drop."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this version was created."
+    },
+    "payload": {
+      "type": "string",
+      "description": "Payload for this version (same format rules as the current drop)."
+    },
+    "iv": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{24}$",
+      "description": "Hex-encoded 12-byte AES-GCM IV used for this version. Null for public drops."
+    }
+  },
+  "required": ["version", "createdAt"]
+}

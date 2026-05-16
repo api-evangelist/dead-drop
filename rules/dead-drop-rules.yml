@@ -1,0 +1,97 @@
+extends:
+  - spectral:oas
+
+functions: []
+
+rules:
+  # Operations must have summaries in Title Case.
+  dead-drop-operation-summary-required:
+    description: Every operation must have a non-empty summary.
+    message: "Operation '{{property}}' is missing a summary."
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head]
+    then:
+      field: summary
+      function: truthy
+
+  dead-drop-operation-summary-title-case:
+    description: Operation summaries should use Title Case.
+    message: "Operation summary should use Title Case: '{{value}}'."
+    severity: warn
+    given: $.paths[*][get,put,post,delete,patch].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  # Operations must be tagged.
+  dead-drop-operation-tags-required:
+    description: Every operation must have at least one tag.
+    message: "Operation is missing tags."
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: tags
+      function: length
+      functionOptions:
+        min: 1
+
+  # Drop identifiers must follow the SHA-256 hex pattern.
+  dead-drop-id-hex-pattern:
+    description: Drop id schemas must enforce 64 lowercase hex characters.
+    message: "Drop id parameter or property should be patterned as ^[a-f0-9]{64}$."
+    severity: warn
+    given: "$.paths['/drops/{id}'].parameters[?(@.name=='id')].schema"
+    then:
+      field: pattern
+      function: truthy
+
+  # All endpoints must declare a 200 (or 201) response.
+  dead-drop-success-response-required:
+    description: Each operation must declare a successful (2xx) response.
+    message: "Operation is missing a 2xx success response."
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            "^2\\d\\d$": {}
+          minProperties: 1
+
+  # Mutating endpoints must require terms-of-service acknowledgement.
+  dead-drop-terms-required-on-mutations:
+    description: POST/PUT/DELETE drop endpoints must require I_agree_with_terms_and_conditions.
+    message: "Mutating drop operation should require I_agree_with_terms_and_conditions."
+    severity: warn
+    given: "$.paths['/drops'].post.requestBody.content.application/json.schema.required"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - I_agree_with_terms_and_conditions
+
+  # Error responses must use the {error:{code,message}} envelope.
+  dead-drop-error-envelope:
+    description: Error responses must use the {error:{code,message}} envelope.
+    message: "Error response schema must contain an 'error' object with 'code' and 'message'."
+    severity: warn
+    given: "$.paths[*][get,put,post,delete,patch].responses[?(@property.match(/^[45]/))].content.application/json.schema.properties"
+    then:
+      field: error
+      function: truthy
+
+  # Document the encryption algorithm enum.
+  dead-drop-encryption-algo-enum:
+    description: encryptionAlgo enum should include pbkdf2-aes256-gcm-v1.
+    message: "encryptionAlgo enum must include pbkdf2-aes256-gcm-v1."
+    severity: info
+    given: "$..encryptionAlgo.enum"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - pbkdf2-aes256-gcm-v1
+          - null

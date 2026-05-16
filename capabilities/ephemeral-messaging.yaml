@@ -1,0 +1,407 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Dead Drop Ephemeral Messaging
+  description: Unified workflow for ephemeral, zero-knowledge data sharing. Generates unused drop names,
+    creates encrypted or public drops, retrieves and updates drop payloads, and manages drop version history.
+    Built on the dead-drop privacy-focused API running on Cloudflare Workers.
+  tags:
+  - Dead Drop
+  - Messaging
+  - Privacy
+  - Anonymous
+  - Zero-Knowledge Encryption
+  - Ephemeral
+  created: '2026-05-16'
+  modified: '2026-05-16'
+binds: []
+capability:
+  consumes:
+  - type: http
+    namespace: dead-drop
+    baseUri: https://api.dead-drop.xyz/api/v1
+    description: dead-drop API v1 for ephemeral, zero-knowledge data sharing.
+    authentication:
+      type: none
+    resources:
+    - name: health
+      path: /health
+      description: API health check.
+      operations:
+      - name: health-check
+        method: GET
+        description: Return API health status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drop-name-generator
+      path: /drops/generate-name
+      description: Random unused drop-name generation.
+      operations:
+      - name: generate-name
+        method: GET
+        description: Generate a random unused 4-word drop name and its SHA-256 id.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drop-name-availability
+      path: /drops/check/{id}
+      description: Drop name availability check.
+      operations:
+      - name: check-name
+        method: GET
+        description: Check whether a drop id (hashed name) is available.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name (64 hex characters).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drops
+      path: /drops
+      description: Drop creation.
+      operations:
+      - name: create-drop
+        method: POST
+        description: Create a new drop (private or public).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            tier: '{{tools.tier}}'
+            visibility: '{{tools.visibility}}'
+            payload: '{{tools.payload}}'
+            salt: '{{tools.salt}}'
+            iv: '{{tools.iv}}'
+            encryptionAlgo: '{{tools.encryptionAlgo}}'
+            encryptionParams: '{{tools.encryptionParams}}'
+            mimeType: '{{tools.mimeType}}'
+            hashAlgo: '{{tools.hashAlgo}}'
+            contentHash: '{{tools.contentHash}}'
+            I_agree_with_terms_and_conditions: true
+    - name: drop
+      path: /drops/{id}
+      description: Individual drop operations.
+      operations:
+      - name: get-drop
+        method: GET
+        description: Retrieve the current version of a drop.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name.
+        - name: I_agree_with_terms_and_conditions
+          in: query
+          type: boolean
+          required: true
+          description: Terms-of-service acknowledgement flag.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-drop
+        method: PUT
+        description: Update an existing drop, creating a new version.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            payload: '{{tools.payload}}'
+            iv: '{{tools.iv}}'
+            mimeType: '{{tools.mimeType}}'
+            contentHash: '{{tools.contentHash}}'
+            newContentHash: '{{tools.newContentHash}}'
+            adminPassword: '{{tools.adminPassword}}'
+            I_agree_with_terms_and_conditions: true
+      - name: delete-drop
+        method: DELETE
+        description: Permanently delete a drop.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            contentHash: '{{tools.contentHash}}'
+            adminPassword: '{{tools.adminPassword}}'
+            I_agree_with_terms_and_conditions: true
+    - name: drop-history
+      path: /drops/{id}/history
+      description: Drop version history.
+      operations:
+      - name: list-history
+        method: GET
+        description: List all stored versions of a drop.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drop-version
+      path: /drops/{id}/history/{version}
+      description: Individual drop versions.
+      operations:
+      - name: get-version
+        method: GET
+        description: Get a specific historical version of a drop.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: SHA-256 hash of the drop name.
+        - name: version
+          in: path
+          type: integer
+          required: true
+          description: Version number.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: dead-drop-api
+    description: Unified REST API for dead-drop ephemeral messaging workflows.
+    resources:
+    - path: /v1/health
+      name: health
+      description: API health.
+      operations:
+      - method: GET
+        name: health-check
+        description: Health check.
+        call: dead-drop.health-check
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/generate-name
+      name: drop-name-generator
+      description: Generate drop name.
+      operations:
+      - method: GET
+        name: generate-name
+        description: Generate a random unused drop name.
+        call: dead-drop.generate-name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/check/{id}
+      name: drop-name-availability
+      description: Check drop name availability.
+      operations:
+      - method: GET
+        name: check-name
+        description: Check whether a drop id is available.
+        call: dead-drop.check-name
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops
+      name: drops
+      description: Drop creation.
+      operations:
+      - method: POST
+        name: create-drop
+        description: Create a new drop.
+        call: dead-drop.create-drop
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/{id}
+      name: drop
+      description: Individual drop.
+      operations:
+      - method: GET
+        name: get-drop
+        description: Retrieve a drop.
+        call: dead-drop.get-drop
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: update-drop
+        description: Update a drop.
+        call: dead-drop.update-drop
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-drop
+        description: Delete a drop.
+        call: dead-drop.delete-drop
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/{id}/history
+      name: drop-history
+      description: Drop history.
+      operations:
+      - method: GET
+        name: list-history
+        description: List drop versions.
+        call: dead-drop.list-history
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/{id}/history/{version}
+      name: drop-version
+      description: Drop version.
+      operations:
+      - method: GET
+        name: get-version
+        description: Get a specific drop version.
+        call: dead-drop.get-version
+        with:
+          id: rest.id
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9080
+    namespace: dead-drop-mcp
+    transport: http
+    description: MCP server for AI-assisted ephemeral, zero-knowledge messaging.
+    tools:
+    - name: health-check
+      description: Verify the dead-drop API is healthy.
+      hints:
+        readOnly: true
+      call: dead-drop.health-check
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generate-drop-name
+      description: Generate a random unused 4-word drop name and SHA-256 id.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: dead-drop.generate-name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-drop-name
+      description: Check whether a drop name (hashed id) is available.
+      hints:
+        readOnly: true
+      call: dead-drop.check-name
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-drop
+      description: Create a new ephemeral drop, private (encrypted) or public.
+      hints:
+        readOnly: false
+      call: dead-drop.create-drop
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-drop
+      description: Retrieve the current version of an ephemeral drop.
+      hints:
+        readOnly: true
+      call: dead-drop.get-drop
+      with:
+        id: tools.id
+        I_agree_with_terms_and_conditions: tools.termsAcknowledged
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-drop
+      description: Replace the payload of an existing drop, creating a new version.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: dead-drop.update-drop
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-drop
+      description: Permanently delete a drop and its history.
+      hints:
+        destructive: true
+        idempotent: true
+      call: dead-drop.delete-drop
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-drop-history
+      description: List the stored historical versions of a drop.
+      hints:
+        readOnly: true
+      call: dead-drop.list-history
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-drop-version
+      description: Retrieve a specific historical version of a drop.
+      hints:
+        readOnly: true
+      call: dead-drop.get-version
+      with:
+        id: tools.id
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.

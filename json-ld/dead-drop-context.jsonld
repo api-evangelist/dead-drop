@@ -1,0 +1,34 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sec": "https://w3id.org/security#",
+    "dd": "https://raw.githubusercontent.com/api-evangelist/dead-drop/main/json-ld/dead-drop-context.jsonld#",
+    "Drop": "dd:Drop",
+    "DropVersion": "dd:DropVersion",
+    "id": "@id",
+    "name": "schema:name",
+    "description": "schema:description",
+    "tier": "dd:tier",
+    "visibility": "dd:visibility",
+    "payload": "dd:payload",
+    "salt": "dd:salt",
+    "iv": "dd:iv",
+    "encryptionAlgo": "sec:cipherAlgorithm",
+    "encryptionParams": "dd:encryptionParams",
+    "mimeType": "schema:encodingFormat",
+    "hashAlgo": "sec:digestAlgorithm",
+    "contentHash": "sec:digestValue",
+    "expiresAt": {
+      "@id": "schema:expires",
+      "@type": "schema:DateTime"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "version": "schema:version",
+    "versions": "dd:versions",
+    "available": "dd:available"
+  }
+}

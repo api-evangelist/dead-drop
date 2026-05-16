@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.dead-drop.xyz/api/v1/health"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "status": "ok",
+      "timestamp": "2026-05-16T12:00:00.000Z"
+    }
+  }
+}
