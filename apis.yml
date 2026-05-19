@@ -3,97 +3,105 @@ url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/
 name: Dead Drop
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-description: 'Privacy-focused, ephemeral data-sharing API with zero-knowledge encryption. Open source under MIT, built on Cloudflare Workers, Hono, and D1.'
+description: Privacy-focused, ephemeral data-sharing API with zero-knowledge encryption. Open source under MIT, built on Cloudflare
+  Workers, Hono, and D1.
 created: '2026-05-16'
-modified: '2026-05-16'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 tags:
-  - Messaging
-  - Privacy
-  - Anonymous
-  - Open Source
-
+- Messaging
+- Privacy
+- Anonymous
+- Open Source
 common:
-  - url: https://dead-drop.xyz
-    type: Website
-  - url: https://davorinrusevljan.github.io/dead-drop/
-    type: Documentation
-  - url: https://davorinrusevljan.github.io/dead-drop/latest/
-    type: APIReference
-  - url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
-    type: APIsJSON
-  - url: https://github.com/davorinrusevljan/dead-drop
-    type: GitHubRepository
-  - url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
-    type: Legal
-  - url: https://dead-drop.xyz/terms
-    type: TermsOfService
+- url: https://dead-drop.xyz
+  type: Website
+- url: https://davorinrusevljan.github.io/dead-drop/
+  type: Documentation
+- url: https://davorinrusevljan.github.io/dead-drop/latest/
+  type: APIReference
+- url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
+  type: APIsJSON
+- url: https://github.com/davorinrusevljan/dead-drop
+  type: GitHubRepository
+- url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
+  type: Legal
+- url: https://dead-drop.xyz/terms
+  type: TermsOfService
 url-source: https://davorinrusevljan.github.io/dead-drop/latest/
 reconciled: false
-
 apis:
-  - name: Dead Drop API v1
-    description: 'Privacy-focused, ephemeral data-sharing API v1. Provides CRUD operations for drops (text-only ephemeral shares), random unused drop-name generation, availability checks, and version history. Free tier drops are 10KB with a 7-day lifespan; Deep tier drops are 4MB with a 90-day lifespan. Private drops use client-side AES-GCM encryption (zero-knowledge); public drops are plaintext.'
-    humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
-    baseURL: https://api.dead-drop.xyz/api/v1
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    tags:
-      - Drops
-      - History
-      - Health Check
-      - Messaging
-      - Privacy
-      - Zero-Knowledge Encryption
-      - Ephemeral
-    properties:
-      - url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/openapi/dead-drop-openapi.yml
-        type: OpenAPI
-      - url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
-        type: OpenAPI
-      - url: https://davorinrusevljan.github.io/dead-drop/latest/
-        type: Documentation
-      - url: https://davorinrusevljan.github.io/dead-drop/
-        type: APIReference
-      - url: https://github.com/davorinrusevljan/dead-drop
-        type: GitHubRepository
-      - url: https://dead-drop.xyz/terms
-        type: TermsOfService
-    contact:
-      - FN: dead-drop.xyz
-        url: https://dead-drop.xyz
-    operations:
-      - method: GET
-        endpoint: /health
-        summary: Health Check
-      - method: GET
-        endpoint: /drops/generate-name
-        summary: Generate A Random Unused Drop Name
-      - method: GET
-        endpoint: /drops/check/{id}
-        summary: Check If A Drop Name Is Available
-      - method: GET
-        endpoint: /drops/{id}
-        summary: Retrieve A Drop
-      - method: PUT
-        endpoint: /drops/{id}
-        summary: Update A Drop
-      - method: DELETE
-        endpoint: /drops/{id}
-        summary: Delete A Drop
-      - method: POST
-        endpoint: /drops
-        summary: Create A New Drop
-      - method: GET
-        endpoint: /drops/{id}/history
-        summary: List Drop History
-      - method: GET
-        endpoint: /drops/{id}/history/{version}
-        summary: Get Specific Drop Version
-
+- name: Dead Drop API v1
+  description: Privacy-focused, ephemeral data-sharing API v1. Provides CRUD operations for drops (text-only ephemeral shares),
+    random unused drop-name generation, availability checks, and version history. Free tier drops are 10KB with a 7-day lifespan;
+    Deep tier drops are 4MB with a 90-day lifespan. Private drops use client-side AES-GCM encryption (zero-knowledge); public
+    drops are plaintext.
+  humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
+  baseURL: https://api.dead-drop.xyz/api/v1
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  tags:
+  - Drops
+  - History
+  - Health Check
+  - Messaging
+  - Privacy
+  - Zero-Knowledge Encryption
+  - Ephemeral
+  properties:
+  - url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/openapi/dead-drop-openapi.yml
+    type: OpenAPI
+  - url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
+    type: OpenAPI
+  - url: https://davorinrusevljan.github.io/dead-drop/latest/
+    type: Documentation
+  - url: https://davorinrusevljan.github.io/dead-drop/
+    type: APIReference
+  - url: https://github.com/davorinrusevljan/dead-drop
+    type: GitHubRepository
+  - url: https://dead-drop.xyz/terms
+    type: TermsOfService
+  - type: NaftikoCapability
+    url: capabilities/dead-drop-documentation.yaml
+  - type: NaftikoCapability
+    url: capabilities/dead-drop-drops.yaml
+  - type: NaftikoCapability
+    url: capabilities/dead-drop-health.yaml
+  - type: NaftikoCapability
+    url: capabilities/dead-drop-history.yaml
+  contact:
+  - FN: dead-drop.xyz
+    url: https://dead-drop.xyz
+  operations:
+  - method: GET
+    endpoint: /health
+    summary: Health Check
+  - method: GET
+    endpoint: /drops/generate-name
+    summary: Generate A Random Unused Drop Name
+  - method: GET
+    endpoint: /drops/check/{id}
+    summary: Check If A Drop Name Is Available
+  - method: GET
+    endpoint: /drops/{id}
+    summary: Retrieve A Drop
+  - method: PUT
+    endpoint: /drops/{id}
+    summary: Update A Drop
+  - method: DELETE
+    endpoint: /drops/{id}
+    summary: Delete A Drop
+  - method: POST
+    endpoint: /drops
+    summary: Create A New Drop
+  - method: GET
+    endpoint: /drops/{id}/history
+    summary: List Drop History
+  - method: GET
+    endpoint: /drops/{id}/history/{version}
+    summary: Get Specific Drop Version
 maintainers:
-  - FN: Davorin Rusevljan
-    url: https://github.com/davorinrusevljan
-
+- FN: Davorin Rusevljan
+  url: https://github.com/davorinrusevljan
 x-github:
   owner: davorinrusevljan
   repo: dead-drop
@@ -101,28 +109,27 @@ x-github:
   license: MIT
   primaryLanguage: TypeScript
   languages:
-    - TypeScript
-    - CSS
-    - JavaScript
-    - Shell
-    - Dockerfile
+  - TypeScript
+  - CSS
+  - JavaScript
+  - Shell
+  - Dockerfile
   topics:
-    - api
-    - cloudflare-d1
-    - cloudflare-workers
-    - encryption
-    - ephemeral
-    - hono
-    - nextjs
-    - openapi
-    - privacy
-    - typescript
-    - zero-knowledge
+  - api
+  - cloudflare-d1
+  - cloudflare-workers
+  - encryption
+  - ephemeral
+  - hono
+  - nextjs
+  - openapi
+  - privacy
+  - typescript
+  - zero-knowledge
   stars: 2
   forks: 0
   createdAt: '2026-03-17'
   pushedAt: '2026-05-16'
-
 x-stack:
   runtime: Cloudflare Workers
   framework: Hono
@@ -130,12 +137,11 @@ x-stack:
   frontend: Next.js
   packageManager: pnpm
   monorepo: Turbo
-
 x-features:
-  - 'Free tier drops: 10KB, 7-day lifespan, text only'
-  - 'Deep tier drops: 4MB, 90-day lifespan'
-  - 'Zero-knowledge encryption: AES-GCM, content encrypted client-side'
-  - 'Public and private drop visibility'
-  - 'Version history (5-version limit)'
-  - 'EFF Diceware random drop names (4-word, kebab-case)'
-  - 'SHA-256 hashed drop identifiers'
+- 'Free tier drops: 10KB, 7-day lifespan, text only'
+- 'Deep tier drops: 4MB, 90-day lifespan'
+- 'Zero-knowledge encryption: AES-GCM, content encrypted client-side'
+- Public and private drop visibility
+- Version history (5-version limit)
+- EFF Diceware random drop names (4-word, kebab-case)
+- SHA-256 hashed drop identifiers

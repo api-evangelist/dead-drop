@@ -1,0 +1,284 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: dead-drop API v1 — Drops
+  description: 'dead-drop API v1 — Drops. 6 operations. Lead operation: Create a New Drop. Self-contained Naftiko capability
+    covering one Dead Drop business surface.'
+  tags:
+  - Dead Drop
+  - Drops
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DEAD_DROP_API_KEY: DEAD_DROP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dead-drop-drops
+    baseUri: ''
+    description: dead-drop API v1 — Drops business capability. Self-contained, no shared references.
+    resources:
+    - name: drops
+      path: /drops
+      operations:
+      - name: post
+        method: POST
+        description: Create a New Drop
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: drops-check-id
+      path: /drops/check/{id}
+      operations:
+      - name: get
+        method: GET
+        description: Check if a Drop Name Is Available
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: SHA-256 hash of the drop name
+          required: true
+    - name: drops-generate-name
+      path: /drops/generate-name
+      operations:
+      - name: get
+        method: GET
+        description: Generate a Random Unused Drop Name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: drops-id
+      path: /drops/{id}
+      operations:
+      - name: get
+        method: GET
+        description: Retrieve a Drop
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: SHA-256 hash of the drop name
+          required: true
+        - name: I_agree_with_terms_and_conditions
+          in: query
+          type: boolean
+          description: Must be true to confirm agreement to terms and conditions
+          required: true
+      - name: put
+        method: PUT
+        description: Update a Drop
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: SHA-256 hash of the drop name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: delete
+        method: DELETE
+        description: Delete a Drop
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: SHA-256 hash of the drop name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: dead-drop-drops-rest
+    port: 8080
+    description: REST adapter for dead-drop API v1 — Drops. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/drops
+      name: drops
+      description: REST surface for drops.
+      operations:
+      - method: POST
+        name: post
+        description: Create a New Drop
+        call: dead-drop-drops.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/check/{id}
+      name: drops-check-id
+      description: REST surface for drops-check-id.
+      operations:
+      - method: GET
+        name: get
+        description: Check if a Drop Name Is Available
+        call: dead-drop-drops.get
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/generate-name
+      name: drops-generate-name
+      description: REST surface for drops-generate-name.
+      operations:
+      - method: GET
+        name: get
+        description: Generate a Random Unused Drop Name
+        call: dead-drop-drops.get
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/drops/{id}
+      name: drops-id
+      description: REST surface for drops-id.
+      operations:
+      - method: GET
+        name: get
+        description: Retrieve a Drop
+        call: dead-drop-drops.get
+        with:
+          id: rest.id
+          I_agree_with_terms_and_conditions: rest.I_agree_with_terms_and_conditions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: put
+        description: Update a Drop
+        call: dead-drop-drops.put
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete a Drop
+        call: dead-drop-drops.delete
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dead-drop-drops-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for dead-drop API v1 — Drops. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-new-drop
+      description: Create a New Drop
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dead-drop-drops.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-if-drop-name-is
+      description: Check if a Drop Name Is Available
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dead-drop-drops.get
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generate-random-unused-drop-name
+      description: Generate a Random Unused Drop Name
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dead-drop-drops.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-drop
+      description: Retrieve a Drop
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dead-drop-drops.get
+      with:
+        id: tools.id
+        I_agree_with_terms_and_conditions: tools.I_agree_with_terms_and_conditions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-drop
+      description: Update a Drop
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: dead-drop-drops.put
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-drop
+      description: Delete a Drop
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: dead-drop-drops.delete
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
