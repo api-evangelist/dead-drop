@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "dead-drop API v1",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/health"
+          },
+          "docs": "Returns the health status of the API"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Drops",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a Random Unused Drop Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/generate-name"
+          },
+          "docs": "Generates a random 4-word drop name using the EFF Diceware wordlist and ensures it is not already in use."
+        },
+        {
+          "info": {
+            "name": "Check if a Drop Name Is Available",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/check/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              }
+            ]
+          },
+          "docs": "Check if a drop with the given ID exists. Returns 200 with availability status regardless of whether the drop exists."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Drop",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              },
+              {
+                "name": "I_agree_with_terms_and_conditions",
+                "value": "",
+                "type": "query",
+                "description": "Must be true to confirm agreement to terms and conditions"
+              }
+            ]
+          },
+          "docs": "Get the current version of a drop by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a Drop",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/drops/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing drop. Authentication is required."
+        },
+        {
+          "info": {
+            "name": "Delete a Drop",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/drops/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a drop permanently. Authentication is required."
+        },
+        {
+          "info": {
+            "name": "Create a New Drop",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/drops",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new drop with the given parameters. The drop name must not already exist. For private drops, the payload must be encrypted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Drop History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/:id/history",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              },
+              {
+                "name": "I_agree_with_terms_and_conditions",
+                "value": "",
+                "type": "query",
+                "description": "Must be true to confirm agreement to terms and conditions"
+              }
+            ]
+          },
+          "docs": "Get a list of all versions of a drop."
+        },
+        {
+          "info": {
+            "name": "Get Specific Drop Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/:id/history/:version",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Version number"
+              },
+              {
+                "name": "I_agree_with_terms_and_conditions",
+                "value": "",
+                "type": "query",
+                "description": "Must be true to confirm agreement to terms and conditions"
+              }
+            ]
+          },
+          "docs": "Get a specific version of a drop."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documentation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OpenAPI Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/docs/openapi.json"
+          },
+          "docs": "Returns the OpenAPI 3.1 specification for the v1 API"
+        },
+        {
+          "info": {
+            "name": "Swagger UI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/docs"
+          },
+          "docs": "Interactive API documentation using Swagger UI"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
