@@ -2,7 +2,7 @@ aid: dead-drop
 url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/apis.yml
 name: Dead Drop
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 description: >-
   Privacy-focused, ephemeral data-sharing API with zero-knowledge encryption. Open source under MIT, built on Cloudflare
   Workers, Hono, and D1.
@@ -40,7 +40,7 @@ apis:
       (zero-knowledge); public drops are plaintext.
     humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
     baseURL: https://api.dead-drop.xyz/api/v1
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Drops
       - History
