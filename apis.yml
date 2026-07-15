@@ -15,6 +15,8 @@ tags:
   - Anonymous
   - Open Source
 common:
+  - type: AgenticAccess
+    url: agentic-access/dead-drop-agentic-access.yml
   - type: DomainSecurity
     url: security/dead-drop-domain-security.yml
   - url: https://dead-drop.xyz
