@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: dead-drop API v1
+  title: dead-drop API v1 Documentation Drops API
   version: 1.0.0
   description: Privacy-focused, ephemeral data-sharing API v1
   contact:
@@ -18,40 +18,7 @@ servers:
 tags:
 - name: Drops
   description: Drop CRUD operations
-- name: History
-  description: Drop version history
-- name: Health
-  description: Health check endpoints
-components:
-  schemas: {}
-  parameters: {}
 paths:
-  /health:
-    get:
-      tags:
-      - Health
-      summary: Health Check
-      description: Returns the health status of the API
-      responses:
-        '200':
-          description: API is healthy
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    enum:
-                    - ok
-                  timestamp:
-                    type: string
-                    format: date-time
-                    description: ISO 8601 timestamp
-                    example: '2026-04-18T12:00:00.000Z'
-                required:
-                - status
-                - timestamp
   /drops/generate-name:
     get:
       tags:
@@ -107,8 +74,7 @@ paths:
       tags:
       - Drops
       summary: Check if a Drop Name Is Available
-      description: Check if a drop with the given ID exists. Returns 200 with availability status regardless of whether the
-        drop exists.
+      description: Check if a drop with the given ID exists. Returns 200 with availability status regardless of whether the drop exists.
       parameters:
       - name: id
         in: path
@@ -185,8 +151,7 @@ paths:
                     example: private
                   payload:
                     type: string
-                    description: 'For private drops: hex-encoded AES-GCM ciphertext (opaque). For public drops: raw content
-                      string, interpreted by mimeType.'
+                    description: 'For private drops: hex-encoded AES-GCM ciphertext (opaque). For public drops: raw content string, interpreted by mimeType.'
                   salt:
                     type: string
                     format: hex
@@ -308,8 +273,7 @@ paths:
               properties:
                 payload:
                   type: string
-                  description: 'For private drops: hex-encoded AES-GCM ciphertext. For public drops: raw content string, interpreted
-                    by mimeType.'
+                  description: 'For private drops: hex-encoded AES-GCM ciphertext. For public drops: raw content string, interpreted by mimeType.'
                   example: Hello, world!
                 iv:
                   type: string
@@ -605,8 +569,7 @@ paths:
       tags:
       - Drops
       summary: Create a New Drop
-      description: Create a new drop with the given parameters. The drop name must not already exist. For private drops, the
-        payload must be encrypted.
+      description: Create a new drop with the given parameters. The drop name must not already exist. For private drops, the payload must be encrypted.
       requestBody:
         content:
           application/json:
@@ -640,8 +603,7 @@ paths:
                   example: private
                 payload:
                   type: string
-                  description: 'For private drops: hex-encoded AES-GCM ciphertext. For public drops: raw content string, interpreted
-                    by mimeType.'
+                  description: 'For private drops: hex-encoded AES-GCM ciphertext. For public drops: raw content string, interpreted by mimeType.'
                   example: Hello, world!
                 salt:
                   type: string
@@ -821,249 +783,6 @@ paths:
                     - message
                 required:
                 - error
-  /drops/{id}/history:
-    get:
-      tags:
-      - History
-      summary: List Drop History
-      description: Get a list of all versions of a drop.
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: SHA-256 hash of the drop name
-        schema:
-          type: string
-      - name: I_agree_with_terms_and_conditions
-        in: query
-        required: true
-        description: Must be true to confirm agreement to terms and conditions
-        schema:
-          type: boolean
-      responses:
-        '200':
-          description: List of versions
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  versions:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        version:
-                          type: integer
-                          minimum: 0
-                          exclusiveMinimum: true
-                          description: Version number
-                          example: 1
-                        createdAt:
-                          type: string
-                          format: date-time
-                          description: ISO 8601 timestamp
-                          example: '2026-04-18T10:00:00.000Z'
-                      required:
-                      - version
-                      - createdAt
-                    description: List of drop versions
-                  current:
-                    type: integer
-                    minimum: 0
-                    exclusiveMinimum: true
-                    description: Current version number
-                    example: 3
-                  maxVersions:
-                    type: integer
-                    minimum: 0
-                    exclusiveMinimum: true
-                    description: Maximum number of versions allowed
-                    example: 10
-                required:
-                - versions
-                - current
-                - maxVersions
-        '403':
-          description: Terms not agreed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: object
-                    properties:
-                      code:
-                        type: string
-                        description: Error code (machine-readable)
-                        example: NOT_FOUND
-                      message:
-                        type: string
-                        description: Error message (human-readable)
-                        example: Drop not found
-                    required:
-                    - code
-                    - message
-                required:
-                - error
-        '404':
-          description: Drop not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: object
-                    properties:
-                      code:
-                        type: string
-                        description: Error code (machine-readable)
-                        example: NOT_FOUND
-                      message:
-                        type: string
-                        description: Error message (human-readable)
-                        example: Drop not found
-                    required:
-                    - code
-                    - message
-                required:
-                - error
-  /drops/{id}/history/{version}:
-    get:
-      tags:
-      - History
-      summary: Get Specific Drop Version
-      description: Get a specific version of a drop.
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: SHA-256 hash of the drop name
-        schema:
-          type: string
-      - name: version
-        in: path
-        required: true
-        description: Version number
-        schema:
-          type: integer
-          minimum: 1
-      - name: I_agree_with_terms_and_conditions
-        in: query
-        required: true
-        description: Must be true to confirm agreement to terms and conditions
-        schema:
-          type: boolean
-      responses:
-        '200':
-          description: Drop version data
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  version:
-                    type: integer
-                    minimum: 0
-                    exclusiveMinimum: true
-                    description: Version number
-                    example: 2
-                  payload:
-                    type: string
-                    description: 'For private drops: hex-encoded AES-GCM ciphertext (opaque). For public drops: raw content
-                      string, interpreted by mimeType.'
-                  iv:
-                    type: string
-                    nullable: true
-                    format: hex
-                    pattern: ^[a-f0-9]{24}$
-                    description: Hex-encoded IV (12 bytes = 24 hex chars), null for public drops
-                    example: 00112233445566778899aabb
-                  createdAt:
-                    type: string
-                    format: date-time
-                    description: ISO 8601 timestamp when this version was created
-                    example: '2026-04-18T10:30:00.000Z'
-                required:
-                - version
-                - payload
-                - iv
-                - createdAt
-        '403':
-          description: Terms not agreed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: object
-                    properties:
-                      code:
-                        type: string
-                        description: Error code (machine-readable)
-                        example: NOT_FOUND
-                      message:
-                        type: string
-                        description: Error message (human-readable)
-                        example: Drop not found
-                    required:
-                    - code
-                    - message
-                required:
-                - error
-        '404':
-          description: Drop or version not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: object
-                    properties:
-                      code:
-                        type: string
-                        description: Error code (machine-readable)
-                        example: NOT_FOUND
-                      message:
-                        type: string
-                        description: Error message (human-readable)
-                        example: Drop not found
-                    required:
-                    - code
-                    - message
-                required:
-                - error
-  /docs/openapi.json:
-    get:
-      tags:
-      - Documentation
-      summary: OpenAPI Specification
-      description: Returns the OpenAPI 3.1 specification for the v1 API
-      responses:
-        '200':
-          description: OpenAPI specification
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  nullable: true
-  /docs:
-    get:
-      tags:
-      - Documentation
-      summary: Swagger UI
-      description: Interactive API documentation using Swagger UI
-      responses:
-        '200':
-          description: Swagger UI HTML page
-          content:
-            text/html:
-              schema: {}
 externalDocs:
   url: https://dead-drop.xyz
   description: dead-drop website

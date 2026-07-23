@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: dead-drop API v1 Documentation API
+  version: 1.0.0
+  description: Privacy-focused, ephemeral data-sharing API v1
+  contact:
+    name: dead-drop.xyz
+    url: https://dead-drop.xyz
+  termsOfService: https://dead-drop.xyz/terms
+  license:
+    name: MIT
+    url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
+servers:
+- url: /api/v1
+  description: v1 API
+- url: https://api.dead-drop.xyz/api/v1
+  description: Production v1 API
+tags:
+- name: Documentation
+paths:
+  /docs/openapi.json:
+    get:
+      tags:
+      - Documentation
+      summary: OpenAPI Specification
+      description: Returns the OpenAPI 3.1 specification for the v1 API
+      responses:
+        '200':
+          description: OpenAPI specification
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  nullable: true
+  /docs:
+    get:
+      tags:
+      - Documentation
+      summary: Swagger UI
+      description: Interactive API documentation using Swagger UI
+      responses:
+        '200':
+          description: Swagger UI HTML page
+          content:
+            text/html:
+              schema: {}
+externalDocs:
+  url: https://dead-drop.xyz
+  description: dead-drop website

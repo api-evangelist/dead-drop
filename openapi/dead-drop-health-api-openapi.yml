@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: dead-drop API v1 Documentation Health API
+  version: 1.0.0
+  description: Privacy-focused, ephemeral data-sharing API v1
+  contact:
+    name: dead-drop.xyz
+    url: https://dead-drop.xyz
+  termsOfService: https://dead-drop.xyz/terms
+  license:
+    name: MIT
+    url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
+servers:
+- url: /api/v1
+  description: v1 API
+- url: https://api.dead-drop.xyz/api/v1
+  description: Production v1 API
+tags:
+- name: Health
+  description: Health check endpoints
+paths:
+  /health:
+    get:
+      tags:
+      - Health
+      summary: Health Check
+      description: Returns the health status of the API
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: ISO 8601 timestamp
+                    example: '2026-04-18T12:00:00.000Z'
+                required:
+                - status
+                - timestamp
+externalDocs:
+  url: https://dead-drop.xyz
+  description: dead-drop website

@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: dead-drop API v1 Documentation History API
+  version: 1.0.0
+  description: Privacy-focused, ephemeral data-sharing API v1
+  contact:
+    name: dead-drop.xyz
+    url: https://dead-drop.xyz
+  termsOfService: https://dead-drop.xyz/terms
+  license:
+    name: MIT
+    url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
+servers:
+- url: /api/v1
+  description: v1 API
+- url: https://api.dead-drop.xyz/api/v1
+  description: Production v1 API
+tags:
+- name: History
+  description: Drop version history
+paths:
+  /drops/{id}/history:
+    get:
+      tags:
+      - History
+      summary: List Drop History
+      description: Get a list of all versions of a drop.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: SHA-256 hash of the drop name
+        schema:
+          type: string
+      - name: I_agree_with_terms_and_conditions
+        in: query
+        required: true
+        description: Must be true to confirm agreement to terms and conditions
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: List of versions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  versions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        version:
+                          type: integer
+                          minimum: 0
+                          exclusiveMinimum: true
+                          description: Version number
+                          example: 1
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 timestamp
+                          example: '2026-04-18T10:00:00.000Z'
+                      required:
+                      - version
+                      - createdAt
+                    description: List of drop versions
+                  current:
+                    type: integer
+                    minimum: 0
+                    exclusiveMinimum: true
+                    description: Current version number
+                    example: 3
+                  maxVersions:
+                    type: integer
+                    minimum: 0
+                    exclusiveMinimum: true
+                    description: Maximum number of versions allowed
+                    example: 10
+                required:
+                - versions
+                - current
+                - maxVersions
+        '403':
+          description: Terms not agreed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Error code (machine-readable)
+                        example: NOT_FOUND
+                      message:
+                        type: string
+                        description: Error message (human-readable)
+                        example: Drop not found
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: Drop not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Error code (machine-readable)
+                        example: NOT_FOUND
+                      message:
+                        type: string
+                        description: Error message (human-readable)
+                        example: Drop not found
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+  /drops/{id}/history/{version}:
+    get:
+      tags:
+      - History
+      summary: Get Specific Drop Version
+      description: Get a specific version of a drop.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: SHA-256 hash of the drop name
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        description: Version number
+        schema:
+          type: integer
+          minimum: 1
+      - name: I_agree_with_terms_and_conditions
+        in: query
+        required: true
+        description: Must be true to confirm agreement to terms and conditions
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Drop version data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: integer
+                    minimum: 0
+                    exclusiveMinimum: true
+                    description: Version number
+                    example: 2
+                  payload:
+                    type: string
+                    description: 'For private drops: hex-encoded AES-GCM ciphertext (opaque). For public drops: raw content string, interpreted by mimeType.'
+                  iv:
+                    type: string
+                    nullable: true
+                    format: hex
+                    pattern: ^[a-f0-9]{24}$
+                    description: Hex-encoded IV (12 bytes = 24 hex chars), null for public drops
+                    example: 00112233445566778899aabb
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: ISO 8601 timestamp when this version was created
+                    example: '2026-04-18T10:30:00.000Z'
+                required:
+                - version
+                - payload
+                - iv
+                - createdAt
+        '403':
+          description: Terms not agreed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Error code (machine-readable)
+                        example: NOT_FOUND
+                      message:
+                        type: string
+                        description: Error message (human-readable)
+                        example: Drop not found
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+        '404':
+          description: Drop or version not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Error code (machine-readable)
+                        example: NOT_FOUND
+                      message:
+                        type: string
+                        description: Error message (human-readable)
+                        example: Drop not found
+                    required:
+                    - code
+                    - message
+                required:
+                - error
+externalDocs:
+  url: https://dead-drop.xyz
+  description: dead-drop website
