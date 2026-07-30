@@ -2,7 +2,19 @@ aid: dead-drop
 url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/apis.yml
 name: Dead Drop
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dead-drop.png
 description: >-
   Privacy-focused, ephemeral data-sharing API with zero-knowledge encryption. Open source under MIT, built on Cloudflare
   Workers, Hono, and D1.
@@ -36,67 +48,78 @@ common:
 url-source: https://davorinrusevljan.github.io/dead-drop/latest/
 reconciled: false
 apis:
-  - name: Dead Drop API v1
-    description: >-
-      Privacy-focused, ephemeral data-sharing API v1. Provides CRUD operations for drops (text-only ephemeral shares),
-      random unused drop-name generation, availability checks, and version history. Free tier drops are 10KB with a
-      7-day lifespan; Deep tier drops are 4MB with a 90-day lifespan. Private drops use client-side AES-GCM encryption
-      (zero-knowledge); public drops are plaintext.
-    humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
-    baseURL: https://api.dead-drop.xyz/api/v1
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    tags:
-      - Drops
-      - History
-      - Health Check
-      - Messaging
-      - Privacy
-      - Zero-Knowledge Encryption
-      - Ephemeral
-    properties:
-      - url: https://raw.githubusercontent.com/api-evangelist/dead-drop/refs/heads/main/openapi/dead-drop-openapi.yml
-        type: OpenAPI
-      - url: https://davorinrusevljan.github.io/dead-drop/latest/openapi.json
-        type: OpenAPI
-      - url: https://davorinrusevljan.github.io/dead-drop/latest/
-        type: Documentation
-      - url: https://davorinrusevljan.github.io/dead-drop/
-        type: APIReference
-      - url: https://github.com/davorinrusevljan/dead-drop
-        type: GitHubRepository
-      - url: https://dead-drop.xyz/terms
-        type: TermsOfService
-    contact:
-      - FN: dead-drop.xyz
-        url: https://dead-drop.xyz
-    operations:
-      - method: GET
-        endpoint: /health
-        summary: Health Check
-      - method: GET
-        endpoint: /drops/generate-name
-        summary: Generate A Random Unused Drop Name
-      - method: GET
-        endpoint: /drops/check/{id}
-        summary: Check If A Drop Name Is Available
-      - method: GET
-        endpoint: /drops/{id}
-        summary: Retrieve A Drop
-      - method: PUT
-        endpoint: /drops/{id}
-        summary: Update A Drop
-      - method: DELETE
-        endpoint: /drops/{id}
-        summary: Delete A Drop
-      - method: POST
-        endpoint: /drops
-        summary: Create A New Drop
-      - method: GET
-        endpoint: /drops/{id}/history
-        summary: List Drop History
-      - method: GET
-        endpoint: /drops/{id}/history/{version}
-        summary: Get Specific Drop Version
+- aid: dead-drop:dead-drop-documentation-api
+  name: Dead Drop Documentation API
+  description: The Documentation API from Dead Drop — 2 operation(s) for documentation.
+  humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
+  baseURL: https://api.dead-drop.xyz/api/v1
+  tags:
+  - Documentation
+  properties:
+  - type: OpenAPI
+    url: openapi/dead-drop-documentation-api-openapi.yml
+  - type: Documentation
+    url: https://davorinrusevljan.github.io/dead-drop/latest/
+  - type: APIReference
+    url: https://davorinrusevljan.github.io/dead-drop/
+  - type: GitHubRepository
+    url: https://github.com/davorinrusevljan/dead-drop
+  - type: TermsOfService
+    url: https://dead-drop.xyz/terms
+- aid: dead-drop:dead-drop-drops-api
+  name: Dead Drop Drops API
+  description: Drop CRUD operations
+  humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
+  baseURL: https://api.dead-drop.xyz/api/v1
+  tags:
+  - Drops
+  properties:
+  - type: OpenAPI
+    url: openapi/dead-drop-drops-api-openapi.yml
+  - type: Documentation
+    url: https://davorinrusevljan.github.io/dead-drop/latest/
+  - type: APIReference
+    url: https://davorinrusevljan.github.io/dead-drop/
+  - type: GitHubRepository
+    url: https://github.com/davorinrusevljan/dead-drop
+  - type: TermsOfService
+    url: https://dead-drop.xyz/terms
+- aid: dead-drop:dead-drop-health-api
+  name: Dead Drop Health API
+  description: Health check endpoints
+  humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
+  baseURL: https://api.dead-drop.xyz/api/v1
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/dead-drop-health-api-openapi.yml
+  - type: Documentation
+    url: https://davorinrusevljan.github.io/dead-drop/latest/
+  - type: APIReference
+    url: https://davorinrusevljan.github.io/dead-drop/
+  - type: GitHubRepository
+    url: https://github.com/davorinrusevljan/dead-drop
+  - type: TermsOfService
+    url: https://dead-drop.xyz/terms
+- aid: dead-drop:dead-drop-history-api
+  name: Dead Drop History API
+  description: Drop version history
+  humanURL: https://davorinrusevljan.github.io/dead-drop/latest/
+  baseURL: https://api.dead-drop.xyz/api/v1
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/dead-drop-history-api-openapi.yml
+  - type: Documentation
+    url: https://davorinrusevljan.github.io/dead-drop/latest/
+  - type: APIReference
+    url: https://davorinrusevljan.github.io/dead-drop/
+  - type: GitHubRepository
+    url: https://github.com/davorinrusevljan/dead-drop
+  - type: TermsOfService
+    url: https://dead-drop.xyz/terms
 maintainers:
   - FN: Davorin Rusevljan
     url: https://github.com/davorinrusevljan
