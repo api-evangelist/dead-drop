@@ -1,0 +1,20 @@
+{
+  "provider": "dead-drop",
+  "sources": [
+    "dead-drop-documentation-api-openapi.yml",
+    "dead-drop-drops-api-openapi.yml",
+    "dead-drop-health-api-openapi.yml",
+    "dead-drop-history-api-openapi.yml"
+  ],
+  "outputs": [
+    "dead-drop-documentation-api-openapi.yml",
+    "dead-drop-drops-api-openapi.yml",
+    "dead-drop-health-api-openapi.yml",
+    "dead-drop-history-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
