@@ -27,6 +27,8 @@ tags:
   - Anonymous
   - Open Source
 common:
+  - type: IssueTracker
+    url: https://github.com/davorinrusevljan/dead-drop/issues
   - type: AgenticAccess
     url: agentic-access/dead-drop-agentic-access.yml
   - type: DomainSecurity
