@@ -20,7 +20,7 @@ description: >-
   Workers, Hono, and D1.
 created: '2026-05-16'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - Messaging
   - Privacy
