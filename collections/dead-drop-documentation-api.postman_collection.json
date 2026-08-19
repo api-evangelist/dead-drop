@@ -1,0 +1,174 @@
+{
+  "item": [
+    {
+      "id": "e29e90cd-741e-489e-9331-a3b09dcecd15",
+      "name": "Documentation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e9b6d6b-b2ec-4421-9d87-40f052d7b3d0",
+          "name": "OpenAPI Specification",
+          "request": {
+            "name": "OpenAPI Specification",
+            "description": {
+              "content": "Returns the OpenAPI 3.1 specification for the v1 API",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "docs",
+                "openapi.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c66be6f4-4b5e-4a82-aed8-191ef69220d3",
+              "name": "OpenAPI specification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    "openapi.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9774595-1591-4be4-be06-7809503b87d4",
+          "name": "Swagger UI",
+          "request": {
+            "name": "Swagger UI",
+            "description": {
+              "content": "Interactive API documentation using Swagger UI",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "docs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8a39d43-bcbc-478b-b381-a47ef1de7274",
+              "name": "Swagger UI HTML page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c7ca0362-fed9-4aca-8b0e-4243a3490fd0",
+    "name": "dead-drop API v1 Documentation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Privacy-focused, ephemeral data-sharing API v1\n\nContact Support:\n Name: dead-drop.xyz",
+      "type": "text/plain"
+    }
+  }
+}

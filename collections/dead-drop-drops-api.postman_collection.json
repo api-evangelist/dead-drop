@@ -1,0 +1,1325 @@
+{
+  "item": [
+    {
+      "id": "fb0cea59-c918-401c-adb9-d2be830227d7",
+      "name": "Drops",
+      "description": {
+        "content": "Drop CRUD operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6f05c72-5a3e-462f-be7c-516bb5c07653",
+          "name": "Generate a Random Unused Drop Name",
+          "request": {
+            "name": "Generate a Random Unused Drop Name",
+            "description": {
+              "content": "Generates a random 4-word drop name using the EFF Diceware wordlist and ensures it is not already in use.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                "generate-name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3ee9e40-7b0b-4ae3-8bc7-a192517ceea9",
+              "name": "A unique random drop name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    "generate-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"abacus-abide-ablaze-able\",\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d28b115e-45cd-48ea-b265-641080341079",
+              "name": "Failed to generate unique name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    "generate-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "291e7a49-af97-47b4-ad2e-38345412af02",
+          "name": "Check if a Drop Name Is Available",
+          "request": {
+            "name": "Check if a Drop Name Is Available",
+            "description": {
+              "content": "Check if a drop with the given ID exists. Returns 200 with availability status regardless of whether the drop exists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                "check",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6dd2a3a-9ea9-4607-80f3-959a311202dd",
+              "name": "Availability status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    "check",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"available\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b8b070f-010e-4480-8154-e69374b375bc",
+          "name": "Retrieve a Drop",
+          "request": {
+            "name": "Retrieve a Drop",
+            "description": {
+              "content": "Get the current version of a drop by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "I_agree_with_terms_and_conditions",
+                  "value": "<boolean>",
+                  "description": "(Required) Must be true to confirm agreement to terms and conditions"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53541930-18bd-4a6f-a454-c70cb08ff073",
+              "name": "Drop data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"tier\": \"free\",\n  \"visibility\": \"private\",\n  \"payload\": \"string\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"expiresAt\": \"2026-04-25T12:00:00.000Z\",\n  \"encryptionParams\": {\n    \"rounds\": 5856\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b554643-3eac-4305-896a-901084c017a2",
+              "name": "Terms not agreed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff1f5953-4c04-4d73-98fc-61882edb57d3",
+              "name": "Drop not found or expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7eec1dd3-c2ee-4110-a555-0cef158c08d6",
+          "name": "Update a Drop",
+          "request": {
+            "name": "Update a Drop",
+            "description": {
+              "content": "Update an existing drop. Authentication is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payload\": \"<string>\",\n  \"I_agree_with_terms_and_conditions\": \"<boolean>\",\n  \"iv\": \"<hex>\",\n  \"mimeType\": \"<string>\",\n  \"contentHash\": \"<hex>\",\n  \"newContentHash\": \"<hex>\",\n  \"adminPassword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35bc8ee2-ea6a-4d57-b511-eea4564477b8",
+              "name": "Drop updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"version\": 3005\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5842a637-c8c9-4359-95e0-f68c8a465265",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e96c58b7-7ef3-400e-a71f-6dd97e63762d",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8928cb7-d8b6-4a35-983f-ec38136aa270",
+              "name": "Payload exceeds tier limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cba01e28-c2b1-44f7-ab4b-41bb774d1cb0",
+              "name": "Maximum versions reached",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65e41321-c7b5-4dbd-b7de-d23099a33f92",
+              "name": "Drop not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": \"Hello, world!\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"iv\": \"00112233445566778899aabb\",\n  \"mimeType\": \"text/plain\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"newContentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b76047b9-6ad1-4ffe-88b7-fba1e89e123f",
+          "name": "Delete a Drop",
+          "request": {
+            "name": "Delete a Drop",
+            "description": {
+              "content": "Delete a drop permanently. Authentication is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"I_agree_with_terms_and_conditions\": \"<boolean>\",\n  \"contentHash\": \"<hex>\",\n  \"adminPassword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0987c19e-ed7c-4b4e-a167-fd7c2ac26fb1",
+              "name": "Drop deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"I_agree_with_terms_and_conditions\": true,\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52daa692-0320-4fe0-a17f-ee0a6157e10b",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"I_agree_with_terms_and_conditions\": true,\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "007a782c-d1c5-4335-9495-9a970f2d328a",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"I_agree_with_terms_and_conditions\": true,\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd35cece-1fd0-4fca-9f73-6916cf7f8b5d",
+              "name": "Drop not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"I_agree_with_terms_and_conditions\": true,\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminPassword\": \"my-secret-admin-password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97a2d186-7936-4524-8929-46ec72514beb",
+          "name": "Create a New Drop",
+          "request": {
+            "name": "Create a New Drop",
+            "description": {
+              "content": "Create a new drop with the given parameters. The drop name must not already exist. For private drops, the payload must be encrypted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<hex>\",\n  \"nameLength\": \"<integer>\",\n  \"visibility\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"salt\": \"<hex>\",\n  \"I_agree_with_terms_and_conditions\": \"<boolean>\",\n  \"tier\": \"<string>\",\n  \"iv\": \"<hex>\",\n  \"encryptionAlgo\": \"<string>\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"<string>\",\n  \"hashAlgo\": \"<string>\",\n  \"contentHash\": \"<hex>\",\n  \"adminHash\": \"<hex>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d46bd21-6930-4f77-b7b0-ae048751456d",
+              "name": "Drop created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"nameLength\": 12,\n  \"visibility\": \"private\",\n  \"payload\": \"Hello, world!\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"tier\": \"free\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"version\": 1,\n  \"tier\": \"free\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75f45f42-9e73-4ba4-b713-32a669214ebd",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"nameLength\": 12,\n  \"visibility\": \"private\",\n  \"payload\": \"Hello, world!\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"tier\": \"free\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f133f2f1-05ea-4ddc-a98b-91f79c790d8e",
+              "name": "Invalid upgrade token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"nameLength\": 12,\n  \"visibility\": \"private\",\n  \"payload\": \"Hello, world!\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"tier\": \"free\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fda54e44-c70c-4fed-a2c2-4a530b7d6f00",
+              "name": "Payload exceeds tier limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"nameLength\": 12,\n  \"visibility\": \"private\",\n  \"payload\": \"Hello, world!\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"tier\": \"free\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7c90c10-6921-4cc8-a32e-308575577286",
+              "name": "Drop name already taken",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"nameLength\": 12,\n  \"visibility\": \"private\",\n  \"payload\": \"Hello, world!\",\n  \"salt\": \"a1b2c3d4e5f6789012345678abcdef01\",\n  \"I_agree_with_terms_and_conditions\": true,\n  \"tier\": \"free\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"encryptionAlgo\": \"pbkdf2-aes256-gcm-v1\",\n  \"encryptionParams\": {\n    \"rounds\": \"<integer>\"\n  },\n  \"mimeType\": \"text/plain\",\n  \"hashAlgo\": \"sha-256\",\n  \"contentHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\",\n  \"adminHash\": \"7c4e8d3a9f1b6e2c8d4a7f3b9e1c5d8a2f6b4e9d3c7a1f8b5e2d9c4a6f3b7e1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "47e7be2d-fdce-468c-9bf8-410213e35d57",
+    "name": "dead-drop API v1 Documentation Drops API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Privacy-focused, ephemeral data-sharing API v1\n\nContact Support:\n Name: dead-drop.xyz",
+      "type": "text/plain"
+    }
+  }
+}

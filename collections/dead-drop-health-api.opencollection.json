@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "dead-drop API v1 Documentation Health API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/health"
+          },
+          "docs": "Returns the health status of the API"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

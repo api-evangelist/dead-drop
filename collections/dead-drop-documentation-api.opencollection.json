@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "dead-drop API v1 Documentation API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documentation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OpenAPI Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/docs/openapi.json"
+          },
+          "docs": "Returns the OpenAPI 3.1 specification for the v1 API"
+        },
+        {
+          "info": {
+            "name": "Swagger UI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/docs"
+          },
+          "docs": "Interactive API documentation using Swagger UI"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

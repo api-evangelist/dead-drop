@@ -1,0 +1,468 @@
+{
+  "item": [
+    {
+      "id": "7b99a867-5dfd-4dc0-9aca-3a89ef4cd95c",
+      "name": "History",
+      "description": {
+        "content": "Drop version history",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dad098b1-51f9-4c51-ab95-df659474dabc",
+          "name": "List Drop History",
+          "request": {
+            "name": "List Drop History",
+            "description": {
+              "content": "Get a list of all versions of a drop.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                ":id",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "I_agree_with_terms_and_conditions",
+                  "value": "<boolean>",
+                  "description": "(Required) Must be true to confirm agreement to terms and conditions"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa34a782-1720-4d2f-80de-a8e62d04a5be",
+              "name": "List of versions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    {\n      \"version\": 1,\n      \"createdAt\": \"2026-04-18T10:00:00.000Z\"\n    },\n    {\n      \"version\": 1,\n      \"createdAt\": \"2026-04-18T10:00:00.000Z\"\n    }\n  ],\n  \"current\": 3,\n  \"maxVersions\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ee7ee4-3929-408f-b12f-e3574e3ee325",
+              "name": "Terms not agreed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59da1b41-cdc8-45be-94eb-91166fd1bf98",
+              "name": "Drop not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "819610dd-3944-415d-a365-cd2adc394279",
+          "name": "Get Specific Drop Version",
+          "request": {
+            "name": "Get Specific Drop Version",
+            "description": {
+              "content": "Get a specific version of a drop.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drops",
+                ":id",
+                "history",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "I_agree_with_terms_and_conditions",
+                  "value": "<boolean>",
+                  "description": "(Required) Must be true to confirm agreement to terms and conditions"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) SHA-256 hash of the drop name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version",
+                  "description": "(Required) Version number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c97ad14-e0e6-4a8a-a9e2-a2ea0dc26155",
+              "name": "Drop version data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version",
+                      "description": "(Required) Version number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": 2,\n  \"payload\": \"string\",\n  \"iv\": \"00112233445566778899aabb\",\n  \"createdAt\": \"2026-04-18T10:30:00.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d52ef89d-af85-4f28-838b-b461af0365cb",
+              "name": "Terms not agreed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version",
+                      "description": "(Required) Version number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8832112d-3531-4b24-b923-4cc67b6fd655",
+              "name": "Drop or version not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drops",
+                    ":id",
+                    "history",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "I_agree_with_terms_and_conditions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) SHA-256 hash of the drop name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version",
+                      "description": "(Required) Version number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Drop not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "51612d17-eb63-4280-b9e6-96efd3b2c316",
+    "name": "dead-drop API v1 Documentation History API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Privacy-focused, ephemeral data-sharing API v1\n\nContact Support:\n Name: dead-drop.xyz",
+      "type": "text/plain"
+    }
+  }
+}

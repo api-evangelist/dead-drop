@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "dead-drop API v1 Documentation History API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Drop History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/:id/history",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              },
+              {
+                "name": "I_agree_with_terms_and_conditions",
+                "value": "",
+                "type": "query",
+                "description": "Must be true to confirm agreement to terms and conditions"
+              }
+            ]
+          },
+          "docs": "Get a list of all versions of a drop."
+        },
+        {
+          "info": {
+            "name": "Get Specific Drop Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/drops/:id/history/:version",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "SHA-256 hash of the drop name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Version number"
+              },
+              {
+                "name": "I_agree_with_terms_and_conditions",
+                "value": "",
+                "type": "query",
+                "description": "Must be true to confirm agreement to terms and conditions"
+              }
+            ]
+          },
+          "docs": "Get a specific version of a drop."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
