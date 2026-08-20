@@ -25,6 +25,11 @@ tags:
   - Messaging
   - Privacy
   - Anonymous
+  - Open-Source
+tags_raw:
+  - Messaging
+  - Privacy
+  - Anonymous
   - Open Source
 common:
   - type: IssueTracker
