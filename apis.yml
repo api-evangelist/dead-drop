@@ -45,6 +45,9 @@ tags_raw:
   - Anonymous
   - Open Source
 common:
+  - type: License
+    name: MIT
+    url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
   - type: IssueTracker
     url: https://github.com/davorinrusevljan/dead-drop/issues
   - type: AgenticAccess
