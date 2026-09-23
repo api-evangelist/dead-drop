@@ -1,10 +1,7 @@
 {
   "provider": "dead-drop",
   "sources": [
-    "dead-drop-documentation-api-openapi.yml",
-    "dead-drop-drops-api-openapi.yml",
-    "dead-drop-health-api-openapi.yml",
-    "dead-drop-history-api-openapi.yml"
+    "_original/dead-drop-openapi.yml"
   ],
   "outputs": [
     "dead-drop-documentation-api-openapi.yml",
@@ -15,6 +12,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dead-drop-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "dead-drop-openapi.yml: declared missing tag: Documentation",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dead-drop-documentation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dead-drop-drops-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dead-drop-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dead-drop-history-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

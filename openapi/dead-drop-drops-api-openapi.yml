@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: dead-drop API v1 Documentation Drops API
+  title: dead-drop API v1 Drops API
   version: 1.0.0
   description: Privacy-focused, ephemeral data-sharing API v1
   contact:
@@ -69,6 +69,8 @@ paths:
                     - message
                 required:
                 - error
+      operationId: getDropsGenerateName
+      x-operation-id-source: derived
   /drops/check/{id}:
     get:
       tags:
@@ -102,6 +104,8 @@ paths:
                 required:
                 - id
                 - available
+      operationId: getDropsCheckById
+      x-operation-id-source: derived
   /drops/{id}:
     get:
       tags:
@@ -253,6 +257,8 @@ paths:
                     - message
                 required:
                 - error
+      operationId: getDropsById
+      x-operation-id-source: derived
     put:
       tags:
       - Drops
@@ -446,6 +452,8 @@ paths:
                     - message
                 required:
                 - error
+      operationId: putDropsById
+      x-operation-id-source: derived
     delete:
       tags:
       - Drops
@@ -564,6 +572,8 @@ paths:
                     - message
                 required:
                 - error
+      operationId: deleteDropsById
+      x-operation-id-source: derived
   /drops:
     post:
       tags:
@@ -783,6 +793,8 @@ paths:
                     - message
                 required:
                 - error
+      operationId: postDrops
+      x-operation-id-source: derived
 externalDocs:
   url: https://dead-drop.xyz
   description: dead-drop website

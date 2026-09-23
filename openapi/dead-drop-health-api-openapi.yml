@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: dead-drop API v1 Documentation Health API
+  title: dead-drop API v1 Health API
   version: 1.0.0
   description: Privacy-focused, ephemeral data-sharing API v1
   contact:
@@ -45,6 +45,8 @@ paths:
                 required:
                 - status
                 - timestamp
+      operationId: getHealth
+      x-operation-id-source: derived
 externalDocs:
   url: https://dead-drop.xyz
   description: dead-drop website
