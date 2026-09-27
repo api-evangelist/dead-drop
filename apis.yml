@@ -38,12 +38,13 @@ tags:
   - Messaging
   - Privacy
   - Anonymous
-  - Open-Source
+  - Open Source
 tags_raw:
   - Messaging
   - Privacy
   - Anonymous
   - Open Source
+  - Open-Source
 common:
   - type: License
     name: MIT
