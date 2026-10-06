@@ -32,7 +32,7 @@ description: >-
   Privacy-focused, ephemeral data-sharing API with zero-knowledge encryption. Open source under MIT, built on Cloudflare
   Workers, Hono, and D1.
 created: '2026-05-16'
-modified: '2026-05-19'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 tags:
   - Messaging
@@ -46,6 +46,8 @@ tags_raw:
   - Open Source
   - Open-Source
 common:
+  - url: https://dead-drop.xyz/blog
+    type: Blog
   - type: License
     name: MIT
     url: https://github.com/davorinrusevljan/dead-drop/blob/main/LICENSE
