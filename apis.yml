@@ -46,6 +46,12 @@ tags_raw:
   - Open Source
   - Open-Source
 common:
+  - type: Plans
+    url: plans/dead-drop-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/dead-drop-rate-limits.yml
+  - type: FinOps
+    url: finops/dead-drop-finops.yml
   - url: https://dead-drop.xyz/blog
     type: Blog
   - type: License
